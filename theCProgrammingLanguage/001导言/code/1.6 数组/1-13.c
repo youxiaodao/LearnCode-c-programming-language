@@ -24,7 +24,9 @@
 5. 遍历wl 
     5.1 打印 各个长度 各个长度的数量
     5.2 如果该长度的数量 > 0
-        5.2.1 
+        5.2.1 计算len
+        5.2.2 打印*
+    5.3 打印超出长度MAXWORD的数量
 */      
 #include <stdio.h>
 
@@ -78,15 +80,16 @@ void main () {
         if (wl[i] > 0) {
             if ((len = wl[i] * MAXHIST/maxvalue) <= 0) {
                 len = 1;
-            } else {
-                len = 0;
             }
-            while (len > 0) {
-                putchar('*');
-                --len;
-            }
-            putchar('\n');
+        } else {
+            len = 0;
         }
+        //printf("len:%d", len);
+        while (len > 0) {
+            putchar('*');
+            --len;
+        }
+        putchar('\n');
     }
     if (ovflow > 0 ) {
         printf("There are %d words >= %d\n", ovflow, MAXWORD);
