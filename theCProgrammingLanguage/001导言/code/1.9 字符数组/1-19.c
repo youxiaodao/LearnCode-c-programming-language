@@ -7,7 +7,7 @@ void reverse(char s[]);
 
 int main(int argc, char const *argv[])
 {
-    char line[MAXLINE];
+    char line[MAXLINE];     // current input line
     while (getline(line, MAXLINE) > 0) {
         reverse(line);
         printf("%s", line);
@@ -20,18 +20,18 @@ void reverse(char s[]){
     char temp;
 
     i=0;
-    while (s[i] != '\0') {
+    while (s[i] != '\0') {      // find the end of tring
         ++i;
     }
-    --i;
+    --i;        // back off from '\0
     if (s[i] =='\n') {
         --i;
     }
-    j = 0;
+    j = 0; // beginning of new strings
     while (j<i) {
         temp = s[j];
         s[j] = s[i];
-        s[i] = temp;
+        s[i] = temp;        // swap the characters
         --i;
         ++j;
     }

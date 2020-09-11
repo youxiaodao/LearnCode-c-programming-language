@@ -26,7 +26,7 @@ void main() {
             search(c);
         }
 
-        if (brace < 0) {
+        if (brace < 0) {        // output errors
             printf("Unbalanced braces\n");
             brace = 0;
         } else if (brack < 0) {
@@ -37,7 +37,7 @@ void main() {
             paren = 0;
         }
     }
-    if (brace>0) {
+    if (brace>0) {      // output errors
         printf("Unbalanced braces\n");
     }
     if (brack>0) {
@@ -68,9 +68,9 @@ void search(int c) {
 void in_comment(void) {
     int c,d;
 
-    c = getchar();
-    d = getchar();
-    while (c != '*' || d != '/') {
+    c = getchar();      // prev character 
+    d = getchar();      // curr character 
+    while (c != '*' || d != '/') {      // search for end
         c = d;
         d = getchar();
     }
@@ -78,9 +78,11 @@ void in_comment(void) {
 
 void in_quote(int c) {
     int d;
-    while ((d = getchar()) != c) {
-        if (d == '\\') {
+    while ((d = getchar()) != c) {      // search end quote
+        if (d == '\\') {                // ignore escape seq 
             getchar();
         }
     }
 }
+
+/* 检测3种语法错误: 不配对的圆括号 方括号 花括号 */

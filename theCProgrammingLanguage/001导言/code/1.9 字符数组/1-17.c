@@ -16,3 +16,22 @@ int main(int argc, char const *argv[])
     }
     return 0;
 }
+
+int getline(char s[], int lim) {
+    int c, i, j;
+
+    j = i = 0;
+    for (; (c = getchar()) != EOF && c !='\n'; ++i) {
+        if (i < lim -2) {
+            s[j] = c;
+            ++j;
+        }
+    }
+    if ( c == '\n') {
+        s[j] = c;
+        ++i;
+        ++j;
+    }
+    s[j] = '\0';
+    return i;
+}
