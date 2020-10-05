@@ -45,7 +45,7 @@ void in_comment(void) {
     d = getchar();  // curr character 
     while (c!='*' || d !='/') { // search for end
         c = d;
-        d = getchar;
+        d = getchar();
     }
 }
 
