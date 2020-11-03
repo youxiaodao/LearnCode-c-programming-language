@@ -14,18 +14,18 @@ int strrindex(char s[], char t[]) {
     }
     return pos;
 }
-// 第二种方法执行效率更高
-#include <string.h>
-int strrindex_a(char s[], char t[]) {
-    int i, j, k;
-    for (i = strlen(s) - strlen(t); i >=0; i--) {       // 求两个字符串长度的差值, 从符合长度的最右端开始遍历  8 - 2 = 6 , 就从 6开始倒数
-        for (j = i, k=0; t[k] != '0' && s[j] == t[k]; j++, k++) {       // 
-            ;
-        }
-        if (k > 0 && t[k] == '\0') {
-            return i;
-        }
-    }
-    return -1;
-}
+
+// #include <string.h>
+// int strrindex_a(char s[], char t[]) {
+//     int i, j, k;
+//     for (i = strlen(s) - strlen(t); i >=0; i--) {       // 求两个字符串长度的差值, 从符合长度的最右端开始遍历  8 - 2 = 6 , 就从 6开始倒数
+//         for (j = i, k=0; t[k] != '0' && s[j] == t[k]; j++, k++) {       // 
+//             ;
+//         }
+//         if (k > 0 && t[k] == '\0') {
+//             return i;
+//         }
+//     }
+//     return -1;
+// }
 
