@@ -10,8 +10,8 @@ int main(int argc, char const *argv[]) {
     long lineno = 0;
     int c, except = 0, number = 0, found = 0;
 
-    while (--argc > 0 && (*++argv)[0] == '-') {
-        while (c = *++argv[0]) {
+    while (--argc > 0 && (*++argv)[0] == '-') { // []与操作数的结合体的优先级比*和++高
+        while (c = *++argv[0]) {    // 对指针argv[0]进行可自增运算
             switch (c) {
                 case 'x':
                     except = 1;
