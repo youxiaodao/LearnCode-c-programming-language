@@ -19,9 +19,9 @@ int ptintrect(struct point p, struct rect r) {
 struct rect canonrect(struct rect r) {
     struct rect temp;
 
-    temp.pt1.x = min(r.pt1.x, t.pt2.x);
-    temp.pt1.y = min(r.pt1.y, t.pt2.y);
-    temp.pt1.x = max(r.pt1.x, t.pt2.x);
-    temp.pt1.x = max(r.pt1.y, t.pt2.y);
+    temp.pt1.x = min(r.pt1.x, r.pt2.x);
+    temp.pt1.y = min(r.pt1.y, r.pt2.y);
+    temp.pt1.x = max(r.pt1.x, r.pt2.x);
+    temp.pt1.x = max(r.pt1.y, r.pt2.y);
     return temp;
 }
