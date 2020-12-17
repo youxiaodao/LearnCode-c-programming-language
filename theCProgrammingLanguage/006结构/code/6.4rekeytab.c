@@ -23,8 +23,7 @@ struct key *binsearch(char *, struct key *, int);
 
 
 // 统计输入中c语言关键字的出现次数
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]) {
     char word[MAXWORD];
     struct key *p;
 
