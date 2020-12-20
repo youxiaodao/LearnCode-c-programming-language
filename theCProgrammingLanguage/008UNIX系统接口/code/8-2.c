@@ -3,6 +3,14 @@
 #include "syscalls.h"
 #define PERMS   6666        // RW for owner, group, others
 
+struct flag_filed {
+    unsigned is_read    : 1;
+    unsigned is_write   : 1;
+    unsigned is_unbuf   : 1;
+    unsigned is_buf     : 1;
+    unsigned is_eof     : 1;
+    unsigned is_err     : 1;
+}
 // open file, reutrn file ptr
 FILE *fopen(char *name, char *mode) {
     int fd;
@@ -72,3 +80,21 @@ int _fillbuf(FILE *fp) {
     return (unsigned char)*fp->ptr++;
 }
 
+
+/*
+结构struct _iobuf的类型定义(即typedef)见 原著page176, _iobuf有一个成员变量是int flag;
+按照题目要求, 我们对变量flag按位字符的方式重新进行了定义, 如下所示
+    struct flag_filed {
+        写在上面
+    }
+在原来的fopen函数中, 有下面的if语句
+    if ((fp->flag & (_RED | _WRITE)) == 0)
+        break;
+这条语句对 _READ 和 _WRITE标志进行了OR操作, 如下所示：
+    (_READ   |    _WRITE)
+        01   |      02      八进制
+        01   |      10      二进制
+            11              运算结果
+
+    惑
+*/
