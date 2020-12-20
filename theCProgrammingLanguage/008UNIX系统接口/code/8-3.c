@@ -13,7 +13,7 @@ int _flushbuf(int x, FILE *fp) {
         return EOF;             // error: incalid pointer
     }
 
-    bufsize = (fp->flag & _UNBUF) ? 1 : BUFSIZE;
+    bufsize = (fp->flag & _UNBUF) ? 1 : BUFSIZ;
     if (fp->base == NULL) {         // no buffer yet
         if ((fp->base = (char *)malloc(bufsize)) == NULL) {
             fp->flag |= _ERR;
@@ -57,3 +57,24 @@ int fflush(FLIE *fp) {
     fp->cnt = (fp->flag & _UNBUF) ? 1 : BUFSIZ
     return rc;
 }
+
+/*
+    当文件不是为了写操作而打开的或者发生错误时, _flushbuf函数将返回一个EOF, 如下所示
+        if ((fp->flag & (_WRITE | _ERR)) != _WRITE) {
+            return EOF;             // error: incalid pointer
+    如果此时还没有缓冲区，我们就将在_fillbuf函数里面那样(page 178)分配一个缓冲区:
+        如果缓冲区已经存在, 我们就把它里面的字符全部清除(并写入相应文件)
+    下一步是把输入参数保存到这个缓存区中
+        *fp-ptr++ = (char)x;
+    因为要给刚刚保存的字符(char)x留一个位置, 所以缓冲区能够容纳的字符个数(fp->cnt)将等于缓冲区的长度 - 1
+    
+    函数fclose需要调用fflush
+    如果文件是为了写操作而打开的
+    就需要把缓冲区的数据写入到有关文件中
+    fclose将对_iobuf机构的各种成员变量进行重置,
+        这是为了保证今后的fopen调用所分配到的_iobuf结构中不会有无意义的值
+        如果操作成功, fclose的返回代码将是0
+
+    fflush先检查文件指针是否合法。然后该文件是为了写操作而打开的, 就调用_flushbuf
+        把缓冲区的数据全部写入文件，接下来，fflush重置ptr和cnt,再返回rc。
+*/
